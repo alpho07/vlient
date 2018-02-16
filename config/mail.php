@@ -2,6 +2,10 @@
 
 return [
 
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
@@ -16,7 +20,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+   'driver' => 'smtp',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +33,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+  'host' => 'smtp.gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +46,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+ 'port' => 587,
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +59,7 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+  
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+   'encryption' => 'tls',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +85,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'nqclclients@gmail.com',
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => 'clients2017',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,5 +120,7 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+    
+    'pretend' => false
 
 ];

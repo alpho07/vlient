@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>NQCL - {{@$title}}</title>
@@ -8,8 +8,8 @@
     <!--=== CSS ===-->
 
     <!-- Bootstrap -->
-     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<!--    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!--    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
 
     <!-- jQuery UI -->
     <!--<link href="plugins/jquery-ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />-->
@@ -33,14 +33,14 @@
     <![endif]-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
 
- 
+
     <!--=== JavaScript ===-->
 
     <script type="text/javascript" src="{{asset('assets/js/libs/jquery-1.10.2.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js')}}"></script>
 
-        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{asset('assets/js/libs/lodash.compat.min.js')}}"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{asset('assets/js/libs/lodash.compat.min.js')}}"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -64,12 +64,7 @@
     <!--[if lt IE 9]>
             <script type="text/javascript" src="plugins/flot/excanvas.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="{{asset('plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/flot/jquery.flot.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/flot/jquery.flot.resize.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/flot/jquery.flot.time.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/flot/jquery.flot.growraf.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/sparkline/jquery.sparkline.min.js')}}"></script> 
     <script type="text/javascript" src="{{asset('plugins/easy-pie-chart/jquery.easy-pie-chart.min.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
@@ -92,25 +87,100 @@
     <script type="text/javascript" src="{{asset('assets/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/plugins.form-components.js')}}"></script>
 
-    
-       <!--=== DataTables ===-->
-    	<script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('plugins/datatables/tabletools/TableTools.min.js')}}"></script> <!-- optional -->
-	<script type="text/javascript" src="{{asset('plugins/datatables/colvis/ColVis.min.js')}}"></script> <!-- optional -->
-	<script type="text/javascript" src="{{asset('plugins/datatables/DT_bootstrap.js')}}"></script>
+
+    <!--=== DataTables ===-->
+    <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/datatables/tabletools/TableTools.min.js')}}"></script> <!-- optional -->
+    <script type="text/javascript" src="{{asset('plugins/datatables/colvis/ColVis.min.js')}}"></script> <!-- optional -->
+    <script type="text/javascript" src="{{asset('plugins/datatables/DT_bootstrap.js')}}"></script>
     <script>
-        $(document).ready(function () {
-            "use strict";
-
-            App.init(); // Init layout and core plugins
-            Plugins.init(); // Init all plugins
-            FormComponents.init(); // Init all form-specific plugins
+$(document).ready(function () {
+    "use strict";
+    App.init(); // Init layout and core plugins
+    Plugins.init(); // Init all plugins
+    FormComponents.init(); // Init all form-specific plugins
+    $('#methodarea').hide();
+    var base = window.location.href;
+    var base_url = base.slice(0, base.lastIndexOf("/"));
+    $('#culture-time').change(function () {
+        id = $(this).val();
+        $.get(base_url + '/client/' + id, function (resp) {
+            $('#cname').val(resp[0].name);
+            $('#cemail').val(resp[0].email);
+            $('#caddress').val(resp[0].address);
+            $('#coname').val(resp[0].contact_person);
+            $('#cphone').val(resp[0].contact_phone);
+            $('#ctype').val('NDQ' + resp[0].client_type + 'TEMP' + Math.floor((Math.random() * 1000000) + 1));
         });
-    </script>
+    });
+    $('select#METHODSPICK').change(function () {
 
+        var value = $(this).val();
+        if (value == 'Other') {
+            $(this).prop('name', '');
+            $("textarea#methodarea").prop('name', 'method');
+            $("textarea#methodarea").prop('name', 'method');
+            $("textarea#methodarea").prop('required', true);
+            $("textarea#methodarea").show();
+        } else {
+            $('select#METHODSPICK').prop('name', 'method');
+            $("textarea#methodarea").prop('name', '');
+             $("textarea#methodarea").prop('required', false);
+            $("textarea#methodarea").hide();
+        }
+    });
+    $(".MNFDATE,.EXPDATE").datepicker({
+        changeYear: true,
+        dateFormat: 'M-yy'
+    });
+    $('a.ADDCONT').click(function () {
+        $(this).hide();
+        var secondcontact = '<div class="form-group CLASS2"><fieldset><legend>2<sup>nd</sup> Contact Person </legend><div class="col-md-4"><input id="" class="form-control" name="cont[]"  placeholder="Name" type="text"></div><div class="col-md-3"><input id="" class="form-control" name="cphone[]"  placeholder="Phone Number" type="text"/></div><div class="col-md-4"><input  class="form-control"  name="cemail[]" required="" placeholder="Email" type="text"></div><div class="col-md-1"><a href="#remove" class="REMCONT">-Rem</a></div></fieldset></div>';
+        var $div = $('.FGROUP');
+        $div.append(secondcontact);
+    });
+    $(document).on('click', 'a.REMCONT', function () {
+        $('a.ADDCONT').show();
+        $('.CLASS2').remove();
+    });
+    $(".uniform").click(function () {
+
+        var favorite = [];
+        $.each($(".uniform:checked"), function () {
+
+            favorite.push($(this).val());
+        });
+        var message = "Hello kindly send me a quotation for the following tests: " + favorite.join(", ");
+        $('textarea#tests_requested').val(message);
+    });
+
+
+   
+
+    /*@if(Auth::check())
+     @if (Session::has('success'))
+     noty({
+     type:'success',
+     text: "{{Session::get('success')}}",
+     })
+     
+     @else
+     noty({
+     type:'error',
+     text: "{{Session::get('error')}}",
+     })
+     @endif
+     @endif*/
+
+
+
+
+});
+
+ 
+    </script>
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
     <!-- Demo JS -->
     <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/demo/pages_calendar.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/demo/charts/chart_filled_blue.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/demo/charts/chart_simple.js')}}"></script>
 </head>

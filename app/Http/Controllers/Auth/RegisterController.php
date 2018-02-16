@@ -3,24 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Client;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use DB;
+use App\Mail\Welcome;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller {
     /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+      |--------------------------------------------------------------------------
+      | Register Controller
+      |--------------------------------------------------------------------------
+      |
+      | This controller handles the registration of new users as well as their
+      | validation and creation. By default this controller uses a trait to
+      | provide this functionality without requiring any additional code.
+      |
+     */
 
-    use RegistersUsers;
+use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -34,8 +37,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest');
     }
 
@@ -45,12 +47,11 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data) {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255|unique:nqcl_clients',
+                    'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -60,12 +61,46 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+    protected function create(array $data) {
+        // str_replace(array('(',')',',','-'), '_', $data['name'])
+        //dd($data);
+        $client_id = 'C'. rand(0, 100);
+        $user = User::create([
+                    'user_id' =>$client_id,
+                    'name' => $data['name'],
+                    'address' => $data['address'],                   
+                    'remember_token' => 'N/A',
+                    'parent' => 0,
+                    'phone' => $data['phone'],
+                    'username' => $data['email'],
+                    'email' => $data['email'],
+                    'password' => md5('#*seCrEt!@-*%' . $data['password']), //replaced bcrypt with md5
         ]);
+
+     
+
+        DB::table('clients')->insert([
+            'name' => strtoupper($data['name']),
+            'email' => $data['email'],
+            'alias' => strtoupper(str_replace(array('(', ')', ',', '-'), '_', $data['name'])),
+            'address' => $data['address'],
+            'client_type' => 'N.A',
+            'comment' => 'No Comment',
+            'clientid' =>$client_id,
+            'credit' => 0,
+            'client_agent_id' => 0,
+            'discount_percentage' => 0,
+            'contact_person' => 'N/A',
+            'contact_phone' => 111111
+        ]);
+        
+//        \Mail::to($user)->send(new \App\Mail\Welcome($user));
+
+
+
+        return $user;
     }
+
+  
+
 }

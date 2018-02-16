@@ -16,9 +16,9 @@
                 <div class="visual green">
                     <i class="icon-beaker"></i>
                 </div>
-                <div class="title">ANALYSIS SAMPLES</div>
+                <div class="title">SUBMIT SAMPLES</div>
                 <div class=""></div>
-                <a class="more" href="{{route('samples')}}"><small>View all submitted samples or Submit new Samples for analysis.</small> <i class="pull-right icon-angle-right"></i></a>
+                <a class="more" href="{{route('samples')}}"><small>Submit new Samples for analysis.&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> <i class="pull-right icon-angle-right"></i></a>
             </div>
         </div> <!-- /.smallstat -->
     </div> <!-- /.col-md-3 -->

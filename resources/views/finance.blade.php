@@ -15,6 +15,12 @@
                     <h4><i class="icon-reorder"></i> Invoices</h4>
                 </div>
                 <div class="widget-content">
+                    <div class="btn-group">
+                         @if(Auth::user()->parent=='0')
+                                                        @else
+                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                    @endif
+                    </div>
                     <div class="tabbable box-tabs">
                         <ul class="nav nav-tabs">
                             <li><a href="#box_tab3" data-toggle="tab">Pending Invoices</a></li>
@@ -41,6 +47,7 @@
                                                             <th class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
+                                                            <th>Quotation No.</th>
                                                             <th>Invoice Reference</th>
                                                             <th>Date Created</th>
                                                             <th >Amount</th>
@@ -49,57 +56,27 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        @foreach($quotations as $q)
+                                                        <tr>                                                           
                                                             <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
+                                                                <input type="checkbox" class="uniform" value="{{$q->id}}">
                                                             </td>
-                                                             <td>INV-NDQC11233</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
+                                                            <td>{{$q->quotations_id}}</td>
                                                             <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
+                                                            <td>{{$q->quotation_date}}</td>
+                                                            <td>{{$q->amount}}</td>
+                                                            <td>
+                                                                @if($q->quotation_status===1)
+                                                                <span class="label label-success">Paid</span>
+                                                                @else
+                                                                <span class="label label-warning">Pending</span>
+                                                                @endif
+
                                                             </td>
-                                                            <td>INV-NDQE23432</td>
-                                                            <td>2017-02-05</td>
-                                                            <td>10,126.00</td>
-                                                            <td><span class="label label-warning">pending</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQF3232r</td>
-                                                            <td>2017-04-01</td>
-                                                            <td>60,126.00</td>
-                                                            <td><span class="label label-danger">Cancelled</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>40,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        
+                                                        @endforeach
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -127,9 +104,11 @@
                                                             <th class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
+                                                            <th>Quotation No.</th>
                                                             <th>Invoice Reference</th>
                                                             <th>Date Created</th>
                                                             <th >Amount</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -138,22 +117,58 @@
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">
                                                             </td>
-                                                            <td>INV-NDQD12345</td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQC11233</td>
                                                             <td>2017-07-08</td>
                                                             <td>50,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">
                                                             </td>
+                                                            <td>QTN-NDQC11233</td>
                                                             <td>INV-NDQC11233</td>
                                                             <td>2017-01-06</td>
                                                             <td>50,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
-                                                      
-                                                        
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" class="uniform">
+                                                            </td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQE23432</td>
+                                                            <td>2017-02-05</td>
+                                                            <td>10,126.00</td>
+                                                            <td><span class="label label-warning">pending</span></td>
+                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" class="uniform">
+                                                            </td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQF3232r</td>
+                                                            <td>2017-04-01</td>
+                                                            <td>60,126.00</td>
+                                                            <td><span class="label label-danger">Cancelled</span></td>
+                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" class="uniform">
+                                                            </td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQD12345</td>
+                                                            <td>2017-07-08</td>
+                                                            <td>40,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
+                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                        </tr>
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -162,7 +177,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="box_tab3">
-                                 <div class="row">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="widget box">
                                             <div class="widget-header">
@@ -180,9 +195,11 @@
                                                             <th class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
+                                                            <th>Quotation No.</th>
                                                             <th>Invoice Reference</th>
                                                             <th>Date Created</th>
                                                             <th >Amount</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -191,32 +208,57 @@
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">
                                                             </td>
-                                                            <td>INV-NDQD12345</td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQC11233</td>
                                                             <td>2017-07-08</td>
                                                             <td>50,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">
                                                             </td>
+                                                            <td>QTN-NDQC11233</td>
                                                             <td>INV-NDQC11233</td>
                                                             <td>2017-01-06</td>
                                                             <td>50,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
-                                                         <tr>
+                                                        <tr>
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">
                                                             </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQE23432</td>
+                                                            <td>2017-02-05</td>
+                                                            <td>10,126.00</td>
+                                                            <td><span class="label label-warning">pending</span></td>
                                                             <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
                                                         </tr>
-                                                        
-                                                      
-                                                        
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" class="uniform">
+                                                            </td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQF3232r</td>
+                                                            <td>2017-04-01</td>
+                                                            <td>60,126.00</td>
+                                                            <td><span class="label label-danger">Cancelled</span></td>
+                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" class="uniform">
+                                                            </td>
+                                                            <td>QTN-NDQC11233</td>
+                                                            <td>INV-NDQD12345</td>
+                                                            <td>2017-07-08</td>
+                                                            <td>40,126.00</td>
+                                                            <td><span class="label label-success">Approved</span></td>
+                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

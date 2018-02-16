@@ -1,7 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     @include('partials.header')
     <body>
+        <style>
+    .enable{
+        display: inline;
+    }
+    
+    .DISABLED{
+        display: none !important;
+    }
+</style>
         <div id="app">
             <nav class="navbar navbar-default navbar-static-top">
                 <div class="container">
@@ -16,9 +26,10 @@
                         </button>
 
                         <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            <img src="{{asset('assets/img/logo_main.png')}}" alt="NQCL - LIMS"/>
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <img src="{{asset('assets/img/logo_main.png')}}" alt="NQCL - LIMS" style="height:50px !important;"/>
                         </a>
+                        
                     </div>
 
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -31,13 +42,13 @@
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <!--                            <li><a href="{{ route('register') }}">Register</a></li>-->
+                            <li ><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
                             @else
-                            <li><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li><a href="{{ route('tracker') }}">Tracker</a></li>
-                            <li><a href="{{ route('finance') }}">Financials</a></li>
-                            <li><a href="{{ route('samples') }}">Samples</a></li>
+                            <li {{@$style}}><a href="{{ route('home') }}">Dashboard</a></li>
+                            <li {{@$style}}><a href="{{ route('tracker') }}">Tracker</a></li>
+                            <li {{@$style}}><a href="{{ route('finance') }}">Financials</a></li>
+                            <li {{@$style}}><a href="{{ route('samples') }}">Samples</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -50,6 +61,16 @@
                                         </a>
 
                                     </li>
+                                    @if(Auth::user()->parent !='0')
+                                    
+                                    @else
+                                    <li>
+                                        <a href="{{ route('contact_persons') }}">                                     
+                                            Contact Persons
+                                        </a>
+
+                                    </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -65,9 +86,13 @@
                                 </ul>
                             </li>
                             @endif
+                            <li> <div class="pull-right"><img style="width:50px !important;" alt="Court of Arms" src="{{asset('assets/img/coa.png')}}"></div></li>
                         </ul>
+                        
                     </div>
+                  
                 </div>
+                
             </nav>
             <div style="padding:15px;">
                 @yield('content')
@@ -77,4 +102,5 @@
         <!-- Scripts -->
 
     </body>
+  
 </html>

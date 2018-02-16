@@ -30,7 +30,10 @@
                                                 <h4><i class="icon-reorder"></i>All Requests</h4>
                                                 <div class="toolbar no-padding">
                                                     <div class="btn-group">
-                                                        <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                                        @if(Auth::user()->parent=='0')
+                                                        @else
+                                                       <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                                       @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,205 +44,161 @@
                                                             <th class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th>Lab Reference</th>
+                                                            <th>Date Submitted</th>
+                                                            <th >Status</th>
+                                                            <th>Date Completed</th>
+                                                            <th>CAN No.</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($all as $a)
                                                         <tr>
                                                             <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
+                                                                <input type="checkbox" value="{{$a->id}}" class="uniform">
                                                             </td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                            <td>{{$a->request_id}}</td>
+                                                            <td>{{$a->designation_date_1}}</td>                                                            
+                                                            <td>
+                                                          @if($a->t==1)
+                                                            <span class="label label-warning">Pending</span>
+                                                              @else
+                                                                <span class="label label-success">Approved</span>
+                                                            @endif
+                                                          </td>
+                                                            <td>-</td> 
+                                                            <td>{{$a->CAN}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQE23432</td>
-                                                            <td>2017-02-05</td>
-                                                            <td>10,126.00</td>
-                                                            <td><span class="label label-warning">pending</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQF3232r</td>
-                                                            <td>2017-04-01</td>
-                                                            <td>60,126.00</td>
-                                                            <td><span class="label label-danger">Cancelled</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>40,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
+                                                    @endforeach
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                                                                </div>
 
-                            </div>
-                            <div class="tab-pane" id="box_tab2">
-                                <div class="row">
-                                    <div class="col-md-12">
+                                                                                                            </div>
+                                                                                                                       <div class="tab-pane" id="box_tab2">
+                                                                                                                           <div class="row">
+                                                                                                                <div class="col-md-12">
                                         <div class="widget box">
                                             <div class="widget-header">
-                                                <h4><i class="icon-reorder"></i>Completed Requests</h4>
-                                                <div class="toolbar no-padding">
-                                                    <div class="btn-group">
-                                                        <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content no-padding">
-                                                <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable ALLINVPICES">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">All
-                                                            </th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+    <h4><i class="icon-reorder"></i>Completed Requests</h4>
+                            <div class="toolbar no-padding">
+                                <div class="btn-group">
+                                     @if(Auth::user()->parent=='0')
+                                                        @else
+                                                       <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                              @endif
                                 </div>
                             </div>
-                            <div class="tab-pane" id="box_tab3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="widget box">
-                                            <div class="widget-header">
-                                                <h4><i class="icon-reorder"></i>Pending Requests</h4>
-                                                <div class="toolbar no-padding">
-                                                    <div class="btn-group">
-                                                        <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content no-padding">
-                                                <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable ALLINVPICES">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">All
-                                                            </th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                    </div>
+                    <div class="widget-content no-padding">
+                        <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable ALLINVPICES">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column">
+                                        <input type="checkbox" class="uniform">All
+                                    </th>
+                                    <th>Lab Reference</th>
+                                    <th>Date Submitted</th>
+                                    <th >Status</th>
+                                    <th>Date Completed</th>
+                                    <th>CAN No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($Completed as $a)
                                                         <tr>
                                                             <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
+                                                                <input type="checkbox" value="{{$a->id}}" class="uniform">
                                                             </td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                            <td>{{$a->request_id}}</td>
+                                                            <td>{{$a->designation_date_1}}</td>                                                            
+                                                            <td>
+                                                          @if($a->t==1)
+                                                            <span class="label label-warning">Pending</span>
+                                                              @else
+                                                                <span class="label label-success">Approved</span>
+                                                            @endif
+                                                          </td>
+                                                            <td>-</td> 
+                                                            <td>{{$a->CAN}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
+                                                    @endforeach
 
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="box_tab3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget box">
+                    <div class="widget-header">
+                        <h4><i class="icon-reorder"></i>Pending Requests</h4>
+                        <div class="toolbar no-padding">
+                            <div class="btn-group">
+                                 @if(Auth::user()->parent=='0')
+                                                        @else                 
+                                <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}"< class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                            @endif
                             </div>
                         </div>
-                    </div> <!-- /.tabbable portlet-tabs -->
-                </div> <!-- /.widget-content -->
-            </div> <!-- /.widget .box -->
-        </div> <!-- /.col-md-12 -->
+                    </div>
+                    <div class="widget-content no-padding">
+                        <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable ALLINVPICES">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column">
+                                        <input type="checkbox" class="uniform">All
+                                    </th>
+                                    <th>Lab Reference</th>
+                                    <th>Date Submitted</th>
+                                    <th >Status</th>
+                                    <th>Date Completed</th>
+                                    <th>CAN No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                      @foreach($Pending as $a)
+                                                        <tr>
+                                                            <td class="checkbox-column">
+                                                                <input type="checkbox" value="{{$a->id}}" class="uniform">
+                                                            </td>
+                                                            <td>{{$a->request_id}}</td>
+                                                            <td>{{$a->designation_date_1}}</td>                                                            
+                                                            <td>
+                                                          @if($a->t==1)
+                                                            <span class="label label-warning">Pending</span>
+                                                              @else
+                                                                <span class="label label-success">Approved</span>
+                                                            @endif
+                                                          </td>
+                                                            <td>-</td> 
+                                                            <td>{{$a->CAN}}</td>
+                                                        </tr>
+                                                    @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div> <!-- /.tabbable portlet-tabs -->
+    </div> <!-- /.widget-content -->
+    </div> <!-- /.widget .box -->
+    </div> <!-- /.col-md-12 -->
     </div> <!-- /.row -->
     <!-- /Box Tabs -->
 
     <!-- /Statboxes -->
-</div>
-@endsection
+    </div>
+    @endsection

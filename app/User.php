@@ -14,8 +14,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table='nqcl_clients';
+    
     protected $fillable = [
-        'name', 'email', 'password',
+        'user_id', 'name', 'address','email','phone','password','parent','remember_token'
     ];
 
     /**
@@ -26,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    function client(){
+        return $this->hasMany(Client::class);
+    }
 }

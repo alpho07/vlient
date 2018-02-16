@@ -14,10 +14,10 @@
                 <h4><i class="icon-reorder"></i> Tracker</h4>
             </div>
             <div class="widget-content">
-                <form class="form-horizontal row-border" action="#">
+                <form class="form-horizontal row-border" action="{{url('search')}}" method="GET">
                   
                         <div class="form-group">
-                            <div class="col-md-12"><input type="text" name="keyword" title="Track by Sample Name, Batch No. or Labreference No." class="form-control bs-tooltip" placeholder="Enter Sample Name, Batch No. or Labreference No."></div>
+                            <div class="col-md-12"><input value="{{Request::old('keyword')}}" type="text" name="keyword" title="Track by Sample Name, Batch No. or Labreference No." class="form-control bs-tooltip" placeholder="Enter Sample Name, Batch No. or Labreference No."></div>
                         </div>
 
                         <div class="form-group">

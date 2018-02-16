@@ -9,7 +9,7 @@
         <li>
             <div class="summary">
                 <span>Completed Samples</span>
-                <h3>10</h3>
+                <h3>{{Session::get('completed')}}</h3>
             </div>
             <div id="sparkline-bar" class="graph sparkline hidden-xs">20,15,8,50,20,40,20,30,20,15,30,20,25,20</div>
             <!-- Use instead of sparkline e.g. this:
@@ -19,7 +19,7 @@
         <li>
             <div class="summary">
                 <span>Pending Samples</span>
-                <h3>6</h3>
+                <h3>{{Session::get('pending')}}</h3>
             </div>
             <div id="sparkline-bar2" class="graph sparkline hidden-xs">20,15,8,50,20,40,20,30,20,15,30,20,25,20</div>
         </li>

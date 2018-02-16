@@ -5,9 +5,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default box">
-                <div class="panel-heading">Loggin into LIMS</div>
+                <div class="panel-heading">NQCL - CLIENT LOGIN</div>
                 <div class="panel-body">
-                    <form class="form-horizontal login-form" method="POST" action="{{ route('login') }}">
+                    @if(Session::has('message'))
+                    <div class="form-group has-error" style="font-weight: bold; color:red;"> {{Session::get('message')}}</div>                   
+                    @endif
+                    <form class="form-horizontal login-form" method="POST" action="{{ route('logincustom') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -16,7 +19,7 @@
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="input-icon">
                                     <i class="icon-user"></i>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="E-Mail">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="E-Mail / Phone">
                                 </div>
                                 @if ($errors->has('email'))
                                 <span class="help-block">
@@ -41,7 +44,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
@@ -49,7 +52,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
@@ -66,8 +69,9 @@
                           <div class="form-group">
                             <div class="">
                                 <hr>
-                                To log in. you must have a username and a password.<br> If you fo not have kindly contact NQCL on info@nqcl.go.ke for assistance.
+                                <p>Login or <a href="{{url('register')}}">Register Here</a> 
                                 <hr>
+                                <center>&copy{{date('Y')}}</center>
                             </div>
                         </div>
                         
