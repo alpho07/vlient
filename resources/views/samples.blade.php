@@ -30,10 +30,10 @@
                                                 <h4><i class="icon-reorder"></i>All Requests</h4>
                                                 <div class="toolbar no-padding">
                                                     <div class="btn-group">
-                                                        @if(Auth::user()->parent=='0')
-                                                        @else
+                                                        {{--@if(Auth::user()->parent=='0')--}}
+                                                          {{--@else--}}
                                                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
-                                                       @endif
+                                                       {{--@@endif--}}
                                                     </div>
                                                 </div>
                                             </div>

@@ -9,7 +9,7 @@ use Auth,
     DB;
 use App\Quotation;
 use App\Mail\QuotationRequest;
-use Mail;
+use Mail,Session;
 
 class RequestController extends Controller {
 
@@ -34,9 +34,10 @@ class RequestController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function q_request() {
-        $temp = $this->number . "-" . str_pad(Quotation::all()->last()->id, 2, '0', STR_PAD_LEFT);
+
+        //$temp = $this->number . "-" . str_pad(Quotation::all()->last()->id, 2, '0', STR_PAD_LEFT);
         $user = Auth::user()->id;
-        $return2 = DB::select("SELECT * FROM clients WHERE clientid='$user'");
+        // $return2 = DB::select("SELECT * FROM clients WHERE clientid='$user'");
         $dosage = DB::connection('mysql2')->select("SELECT * FROM dosage_form");
         $wet = DB::connection('mysql2')->select("SELECT * FROM tests WHERE department = '1'");
         $micro = DB::connection('mysql2')->select("SELECT * FROM tests WHERE department = '2'");
@@ -52,28 +53,28 @@ class RequestController extends Controller {
                     'med' => $med,
                     'pack' => $pack,
                     'clients' => $clients,
-                    'temp' => $temp,
-                    'cperson' => $return2,
+                    'temp' => 'QUOTATION-TEMP',
+                    'cperson' => Auth::user()->name,
                     'meth' => $meth
         ]);
     }
 
     function sendQuotationRequest(Request $r) {
-       $data = $r->all();
+        $data = $r->all();
         $user = Auth::user();
         $q = new Quotation;
-        $padded = str_pad(Quotation::all()->last()->id, 2, '0', STR_PAD_LEFT);
-        $id = $this->number . "-" . $padded;
+       // $padded = str_pad(Quotation::all()->last()->id, 2, '0', STR_PAD_LEFT);
+       // $id = $this->number . "-" . $padded;
         $q->client_number = $user->id;
         $q->client_email = $user->email;
-        $q->client_name = $user->fname;
+        $q->client_name = $user->name;
         $q->sample_name = $r->sample_name;
         $q->no_of_batches = $r->batches;
         $q->quotation_date = date('Y-m-d');
         $q->active_ingredients = 'NULLL';
         $q->dosage_form = 0;
-        $q->quotations_id = $id;
-        $q->quotation_no = 'NDQ-' . Auth::id() . "-" . date('y-m') . "-Q-" . $padded;
+        $q->quotations_id = 'GENQUOTE';
+        $q->quotation_no = 'GENQUOTE'; //'NDQ-' . Auth::id() . "-" . date('y-m') . "-Q-" . $padded;
         $q->quotation_entries = 0;
         $q->quotation_entries_done = 0;
         $q->amount = 0.00;
@@ -88,14 +89,25 @@ class RequestController extends Controller {
         $q->signatory_name = 'NULL';
         $q->qdetails = $r->tests_requested;
         $q->save();
-        
-        //\Mail::to($user)->send(new QuotationRequest($user,$data));
-        \Mail::send('quotation',$data, function ($message) {
-			$message->from(Auth::user()->email,Auth::user()->name);
-			$message->to('clients@nqcl.go.ke');
-			$message->subject('Quotation Request ');
- 		});
-        
+
+        $name = Auth::user()->name;
+        $maildata = array(
+            'name' => $name,
+            "quotation_id" => "QUOTEGEnT",
+            "sample_name" => $r->sample_name,
+            "currency" => $r->currency,
+            "batches" => $r->batches,
+            "tests_requested" => $r->tests_requested
+        );
+
+        \Mail::send('emails.quotation', $maildata, function($message) {
+            $name = Auth::user()->name;
+            $email = Auth::user()->email;
+            $message->to('wndethi@gmail.com', 'NQCL LIMS CLIENT')
+                    ->subject($name . ', Quotation Request');
+            $message->from($email, $name);
+        });
+        Session::put('quote', 'Your Quotation request has been received, we shall get back to you shortly');
         return redirect('finance');
     }
 

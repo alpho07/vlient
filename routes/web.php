@@ -45,3 +45,5 @@ Route::get('/client/{id}', function($id){
 
 Route::get('/sample/{id}', 'RequestController@show')->name('sample');
 Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/requestchange', 'HomeController@sendPasswordEmail');
+Route::get('/changepassword', 'HomeController@changepassword');

@@ -31,7 +31,7 @@
                                     <div class="col-md-3 pull-left">
                                         <label>
                                             <span> Quotation/PLO No</span>
-                                        </label> <input required type="text" name="quotation" class="form-control" id='quotaion'  >
+                                        </label> <input required type="text" name="quotation" class="form-control" id='quotaion' placeholder="use any random numbers"  >
                                         <span><a href="{{url('q_request')}}">Do not have either?, Request!</a></span>
                                     </div>
                                 </div>

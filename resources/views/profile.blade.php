@@ -9,7 +9,7 @@
     <!--=== Page Content ===-->
     <!--=== Full Size Inputs ===-->
     @if(Auth::user()->parent != '0')
-    <form class="form-horizontal row-border" action="{{url('updatec')}}"method="post">
+    <form class="form-horizontal row-border" action="{{url('updatec')}}"method="post" id='CHILDFORM'>
 
         {{csrf_field()}}
         <div class="row">
@@ -40,7 +40,9 @@
 
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-lg" style="margin-left: 20px;">UPDATE PROFILE DETAILS</button>
+                        <span style="margin-left:10px;">Tick the checkbox below to show update button</span><br>
+                         <input type="checkbox" id="CPROFILE" style="margin-left:10px;" title="Check to show update Button">
+                         <button type="button" class="btn btn-success btn-lg CPUPDATE" id="CHILDUPDATER" style="margin-left: 20px; display:none;">UPDATE PROFILE DETAILS</button>
                         </div>
                     </div>                    
                 </div>
@@ -50,13 +52,20 @@
         </div>
 
     </form>
-    <form action="{{url('update_passwordc')}}" method="post">
+    <form action="{{url('requestchange')}}" method="get">
         {{csrf_field()}}
-        <div class="widget box">
+          <div class="widget box">
             <div class="widget-header">
                 <h4><i class="icon-reorder"></i> Change Password</h4>
             </div>
             <div class="widget-content">
+                @if(Session::has('psuccess'))
+                <div class="alert alert-success">
+                    {{Session::get('psuccess')}}
+                </div>
+                @else
+                
+                @endif
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -68,7 +77,7 @@
                 @endif
 
                 <div class="form-group">
-                    <div class="col-md-6">
+                    <!--div class="col-md-6">
                         <label class="radio">
                             <input required type="password" name="password"  class="form-control"  placeholder="New Password">
                         </label>
@@ -76,16 +85,18 @@
                             <input required type="password" name="password_confirmation"  class="form-control"  placeholder="Confirm New Password">
                         </label>                             
 
-                    </div>
+                    </div-->
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-lg" style="margin-left: 20px;">CHANGE PASSWORD</button>
+                         <span style="margin-left:10px;">Tick the checkbox below to show change password button</span><br>
+                         <input type="checkbox" id="CPUPASS" style="margin-left:10px;" title="Check to show update Button">
+                    <button type="submit" class="btn btn-success btn-lg CPCLIPASS" style="margin-left: 20px; display:none;">CHANGE PASSWORD</button>
                 </div>
             </div>                    
         </div>
     </form>
     @else
-    <form class="form-horizontal row-border" action="{{url('cupdate')}}"method="post">
+    <form class="form-horizontal row-border" action="{{url('cupdate')}}"method="post" id='PARENTFORM'>
 
         {{csrf_field()}}
         <div class="row">
@@ -118,7 +129,9 @@
 
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-lg" style="margin-left: 20px;">UPDATE PROFILE DETAILS</button>
+                        <span style="margin-left:10px;">Tick the checkbox below to show update button</span><br>
+                         <input type="checkbox" id="UPROFILE" style="margin-left:10px;" title="Check to show update Button">
+                            <button type="submit" class="btn btn-success btn-lg CLIUPDATE" id='PARENTUPDATER' style="margin-left: 20px; display:none;">UPDATE PROFILE DETAILS</button>
                         </div>
                     </div>                    
                 </div>
@@ -128,13 +141,20 @@
         </div>
 
     </form>
-    <form action="{{url('update_password')}}" method="post">
+    <form action="{{url('requestchange')}}" method="get">
         {{csrf_field()}}
         <div class="widget box">
             <div class="widget-header">
                 <h4><i class="icon-reorder"></i> Change Password</h4>
             </div>
             <div class="widget-content">
+                @if(Session::has('psuccess'))
+                <div class="alert alert-success">
+                    {{Session::get('psuccess')}}
+                </div>
+                @else
+                
+                @endif
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -146,7 +166,7 @@
                 @endif
 
                 <div class="form-group">
-                    <div class="col-md-6">
+                    <!--div class="col-md-6">
                         <label class="radio">
                             <input required type="password" name="password"  class="form-control"  placeholder="New Password">
                         </label>
@@ -154,10 +174,12 @@
                             <input required type="password" name="password_confirmation"  class="form-control"  placeholder="Confirm New Password">
                         </label>                             
 
-                    </div>
+                    </div-->
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-lg" style="margin-left: 20px;">CHANGE PASSWORD</button>
+                <span style="margin-left:10px;">Tick the checkbox below to show change password button</span><br>
+                         <input type="checkbox" id="UPASS" style="margin-left:10px;" title="Check to show update Button">
+                    <button type="submit" class="btn btn-success btn-lg CLIPASS" style="margin-left: 20px; display:none;">CHANGE PASSWORD</button>
                 </div>
             </div>                    
         </div>

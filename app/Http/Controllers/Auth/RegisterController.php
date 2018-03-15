@@ -31,6 +31,8 @@ use RegistersUsers;
      * @var string
      */
     protected $redirectTo = '/home';
+    private $name='';
+    private $email='';
 
     /**
      * Create a new controller instance.
@@ -64,11 +66,13 @@ use RegistersUsers;
     protected function create(array $data) {
         // str_replace(array('(',')',',','-'), '_', $data['name'])
         //dd($data);
-        $client_id = 'C'. rand(0, 100);
+        $client_id = 'C' . rand(0, 100);
+        $this->email =$data['email'];
+        $this->name =$data['name'];
         $user = User::create([
-                    'user_id' =>$client_id,
+                    'user_id' => $client_id,
                     'name' => $data['name'],
-                    'address' => $data['address'],                   
+                    'address' => $data['address'],
                     'remember_token' => 'N/A',
                     'parent' => 0,
                     'phone' => $data['phone'],
@@ -77,7 +81,7 @@ use RegistersUsers;
                     'password' => md5('#*seCrEt!@-*%' . $data['password']), //replaced bcrypt with md5
         ]);
 
-     
+
 
         DB::table('clients')->insert([
             'name' => strtoupper($data['name']),
@@ -86,21 +90,43 @@ use RegistersUsers;
             'address' => $data['address'],
             'client_type' => 'N.A',
             'comment' => 'No Comment',
-            'clientid' =>$client_id,
+            'clientid' => $client_id,
             'credit' => 0,
             'client_agent_id' => 0,
             'discount_percentage' => 0,
             'contact_person' => 'N/A',
             'contact_phone' => 111111
         ]);
-        
-//        \Mail::to($user)->send(new \App\Mail\Welcome($user));
+
+        $maildata = array('name' => $data['name'], "body" => "Test mail");
+
+        \Mail::send('emails.welcome',   $maildata , function($message) {
+            $message->to($this->email, $this->name)
+                    ->subject($this->name.', Welcome to your new NQCL LIMS account ');
+            $message->from('info@nqcl.go.ke', 'Rebecca from NQCL');
+        });
+
 
 
 
         return $user;
     }
 
-  
+    function sendMail() {
+
+// If you are not using Composer
+// require("path/to/sendgrid-php/sendgrid-php.php");
+        $from = new SendGrid\Email("Example User", "test@example.com");
+        $subject = "Sending with SendGrid is Fun";
+        $to = new SendGrid\Email("Example User", "test@example.com");
+        $content = new SendGrid\Content("text/plain", "and easy to do anywhere, even with PHP");
+        $mail = new SendGrid\Mail($from, $subject, $to, $content);
+        $apiKey = getenv('SENDGRID_API_KEY');
+        $sg = new \SendGrid($apiKey);
+        $response = $sg->client->mail()->send()->post($mail);
+        echo $response->statusCode();
+        print_r($response->headers());
+        echo $response->body();
+    }
 
 }

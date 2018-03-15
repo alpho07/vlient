@@ -34,6 +34,7 @@ return [
     */
 
   'host' => 'smtp.gmail.com',
+  //'host' => 'smtp.googlemail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +60,7 @@ return [
     |
     */
 
-  
+  'from' => ['address' => null, 'name' => null],
 
     /*
     |--------------------------------------------------------------------------
@@ -85,9 +86,9 @@ return [
     |
     */
 
-    'username' => 'nqclclients@gmail.com',
+    'username' => 'nqclclientlims@gmail.com',
 
-    'password' => 'clients2017',
+    'password' => '@clients2018',
 
     /*
     |--------------------------------------------------------------------------

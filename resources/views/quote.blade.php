@@ -74,7 +74,7 @@
                                     <input type="text" readonly name="clientname" class="form-control" id='cname'  placeholder="CLIENT NAME"  value="{{Auth::user()->fname}}">
                                 </label>
                                 <label class="radio">
-                                    <input type="text" readonly name="contactname" class="form-control" id='coname' placeholder="CONTACT NAME" value="{{$cperson[0]->contact_person}}">
+                                    <input type="text" readonly name="contactname" class="form-control" id='coname' placeholder="CONTACT NAME" value="">
                                 </label>
 
                             </div>
@@ -83,13 +83,13 @@
                                     <input type="text" readonly name="clientemail" class="form-control" id='cemail' placeholder="CLIENT EMAIL" value="{{Auth::user()->email}}">
                                 </label>
                                 <label class="radio">
-                                    <input type="text" readonly name="contacttel" class="form-control" id='cphone' placeholder="CONTACT TELEPHONE" value="{{$cperson[0]->contact_phone}}">
+                                    <input type="text" readonly name="contacttel" class="form-control" id='cphone' placeholder="CONTACT TELEPHONE" value="">
                                 </label>
 
                             </div>
                             <div class="col-md-4">
                                 <label class="radio">
-                                    <textarea  cols="5" readonly name="clientaddress" class="form-control" id='caddress' placeholder="CLIENT ADDRESS">{{$cperson[0]->address}}</textarea>
+                                    <textarea  cols="5" readonly name="clientaddress" class="form-control" id='caddress' placeholder="CLIENT ADDRESS">{{Auth::user()->address}}</textarea>
                                 </label>
 
 

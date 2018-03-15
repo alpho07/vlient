@@ -32,7 +32,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>                                        
-                                        <th>Action</th>
+                                        <!--th>Action</th-->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +45,7 @@
                                         <td>{{$c->email}}</td>
                                         <td>{{$c->phone}}</td>
                                        
-                                        <td><a href="{{url('editc/'.$c->id)}}">Edit</a> | <a href="{{url('delete/'.$c->id)}}">Delete</a></td>
+                                        <!--td><a href="{{url('editc/'.$c->id)}}">Edit</a> | <a href="{{url('delete/'.$c->id)}}">Delete</a></td-->
                                     </tr>
                                   @endforeach
 

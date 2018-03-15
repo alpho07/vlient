@@ -40,8 +40,8 @@ class HomeController extends Controller {
             $pending = RequestModel::whereUser_id($id)->where("CAN", "-")->get();
             $r->session()->put('completed', count($Completed));
             $r->session()->put('pending', count($pending));
-            $style='class=nothing';
-            return view('home')->with(['title' => 'CLIENT DASHBOARD','style'=>$style]);
+            $style = 'class=nothing';
+            return view('home')->with(['title' => 'CLIENT DASHBOARD', 'style' => $style]);
         }
     }
 
@@ -56,8 +56,8 @@ class HomeController extends Controller {
     }
 
     function samples() {
-             
-        $id = Auth::user()->user_id;        
+
+        $id = Auth::user()->user_id;
         $ALL = RequestModel::whereUser_id($id)->get();
         $Completed = RequestModel::whereUser_id($id)->where("CAN", "!=", "-")->get();
         $pending = RequestModel::whereUser_id($id)->where("CAN", "-")->get();
@@ -125,7 +125,8 @@ class HomeController extends Controller {
     function search(Request $r) {
         $keyword = $r->keyword;
         $user = Auth::user()->id;
-        $caveats = DB::select(DB::raw("SELECT * FROM request WHERE product_name LIKE '%$keyword%' OR request_id LIKE '%$keyword%' OR batch_no LIKE '%$keyword%' AND user_id='$user'"));
+
+        $caveats = DB::select(DB::raw("SELECT * FROM request WHERE ( (product_name LIKE '$keyword%') OR (request_id LIKE '$keyword%') OR (batch_no LIKE '$keyword%') ) AND user_id='$user' "));
         //OR  County LIKE '%$search%' OR Description LIKE '%$search%' OR Area LIKE '%$search%' OR Landmark LIKE '%$search%' OR Road LIKE '%$search%'
         //Get current page form url e.g. &page=6
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -164,13 +165,12 @@ class HomeController extends Controller {
             'address' => $data['address'],
         ]);
 
-     
+
 
         return redirect()->back();
     }
-    
-    
-      protected function updatec(Request $data) {
+
+    protected function updatec(Request $data) {
 
 
 
@@ -178,10 +178,31 @@ class HomeController extends Controller {
             'name' => strtoupper($data['fname']),
             'phone' => $data['phone'],
             'email' => $data['email'],
-                'address'=>Auth::user()->address
+            'address' => Auth::user()->address
         ]);
 
         return redirect()->back();
+    }
+    
+    function changepassword(){
+        return view('changepassword');
+    }
+
+    protected function sendPasswordEmail() {
+        $name = Auth::user()->name;
+        $maildata = array('name' => $name, "body" => "");
+
+        \Mail::send('emails.changepassword', $maildata, function($message) {
+            $name = Auth::user()->name;
+            $email = Auth::user()->email;
+            $message->to($email, $name)
+                    ->subject($name. ', Change of password Notification');
+            $message->from('info@nqcl.go.ke', 'Rebecca from NQCL');
+        });
+        
+         Session::put('psuccess', 'An email has been sent to your email address with password change link');
+        return redirect()->back();
+        
     }
 
     protected function updatePassword(Request $data) {
@@ -193,14 +214,14 @@ class HomeController extends Controller {
             'password' => md5('#*seCrEt!@-*%' . $data['password'])
         ]);
         if ($k) {
-            Session::put('success', 'Password Updated Successfully');
+            Session::put('psuccess', 'Password Updated Successfully');
         } else {
             Session::put('error', 'An error occured. Password not updated');
         }
 
-        return redirect()->back();
+        return redirect('profile');
     }
-    
+
     protected function updatePasswordc(Request $data) {
 
         $this->validate($data, [
@@ -210,7 +231,7 @@ class HomeController extends Controller {
             'password' => md5('#*seCrEt!@-*%' . $data['password'])
         ]);
         if ($k) {
-            Session::put('success', 'Password Updated Successfully');
+            Session::put('psuccess', 'Password Updated Successfully');
         } else {
             Session::put('error', 'An error occured. Password not updated');
         }

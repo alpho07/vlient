@@ -15,11 +15,17 @@
                     <h4><i class="icon-reorder"></i> Invoices</h4>
                 </div>
                 <div class="widget-content">
-                    <div class="btn-group">
-                         @if(Auth::user()->parent=='0')
-                                                        @else
-                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                    @if(Session::has('quote'))
+                    <div class="alert alert-success">
+                        {{Session::get('quote')}}
+                    </div>
+                    @else 
                     @endif
+                    <div class="btn-group">
+                        {{--@if(Auth::user()->parent=='0')--}}
+                        {{--@else--}}
+                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                        {{--@endif--}}
                     </div>
                     <div class="tabbable box-tabs">
                         <ul class="nav nav-tabs">
@@ -113,61 +119,10 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQE23432</td>
-                                                            <td>2017-02-05</td>
-                                                            <td>10,126.00</td>
-                                                            <td><span class="label label-warning">pending</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQF3232r</td>
-                                                            <td>2017-04-01</td>
-                                                            <td>60,126.00</td>
-                                                            <td><span class="label label-danger">Cancelled</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>40,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
+
+
+
+
 
                                                     </tbody>
                                                 </table>
@@ -204,61 +159,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>2017-01-06</td>
-                                                            <td>50,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQE23432</td>
-                                                            <td>2017-02-05</td>
-                                                            <td>10,126.00</td>
-                                                            <td><span class="label label-warning">pending</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQF3232r</td>
-                                                            <td>2017-04-01</td>
-                                                            <td>60,126.00</td>
-                                                            <td><span class="label label-danger">Cancelled</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">
-                                                            </td>
-                                                            <td>QTN-NDQC11233</td>
-                                                            <td>INV-NDQD12345</td>
-                                                            <td>2017-07-08</td>
-                                                            <td>40,126.00</td>
-                                                            <td><span class="label label-success">Approved</span></td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
-                                                        </tr>
+
+
+
+
+
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -125,7 +125,7 @@ $(document).ready(function () {
         } else {
             $('select#METHODSPICK').prop('name', 'method');
             $("textarea#methodarea").prop('name', '');
-             $("textarea#methodarea").prop('required', false);
+            $("textarea#methodarea").prop('required', false);
             $("textarea#methodarea").hide();
         }
     });
@@ -155,7 +155,9 @@ $(document).ready(function () {
     });
 
 
-   
+
+
+
 
     /*@if(Auth::check())
      @if (Session::has('success'))
@@ -177,7 +179,57 @@ $(document).ready(function () {
 
 });
 
- 
+$(document).ready(function () {
+    $('input#UPROFILE').click(function () {
+        if ($(this).is(':checked')) {
+            $(this).hide();
+            $('.CLIUPDATE').show();
+        }
+    });
+
+
+    $('input#CPROFILE').click(function () {
+        if ($(this).is(':checked')) {
+            $(this).hide();
+            $('.CPUPDATE').show();
+        }
+    });
+
+
+
+    $('input#UPASS').click(function () {
+        if ($(this).is(':checked')) {
+            $(this).hide();
+            $('.CLIPASS').show();
+        }
+    });
+
+    $('input#CPUPASS').click(function () {
+        if ($(this).is(':checked')) {
+            $(this).hide();
+            $('.CPCLIPASS').show();
+        }
+    });
+
+    $("#CHILDUPDATER").click(function () {
+        var r = confirm("Are you sure you want to update your profile");
+        if (r == true) {
+            document.getElementById("CHILDFORM").submit();
+        } else {
+            alert('No Changes Made')
+        }
+    });
+    $("#PARENTUPDATER").click(function () {
+        var r = confirm("Are you sure you want to update your profile");
+        if (r == true) {
+            document.getElementById("PARENTFORM").submit();
+        } else {
+            alert('No Changes Made')
+        }
+    });
+});
+
+
     </script>
     <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
     <!-- Demo JS -->
