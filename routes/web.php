@@ -26,6 +26,8 @@ Route::post('/regcontact', 'Auth\ContactController@reg')->name('regcontact');
 Route::post('/update_password', 'HomeController@updatePassword')->name('update_password');
 Route::post('/update_passwordc', 'HomeController@updatePasswordc')->name('update_passwordc');
 Route::post('/create', 'RequestController@store')->name('create');
+Route::get('/edit/{request_id}', 'RequestController@show')->name('show');
+Route::post('/request_update/', 'RequestController@update')->name('request_update');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -42,6 +44,8 @@ Route::get('/client/{id}', function($id){
     return response()->json($details);
     
 });
+Route::get('/q_request_edit/{quotation_no}', 'RequestController@q_request_edit')->name('edit_quote');
+Route::post('/updateQuote', 'RequestController@updateQuote')->name('updateQuote');
 
 Route::get('/sample/{id}', 'RequestController@show')->name('sample');
 Route::get('/search', 'HomeController@search')->name('search');

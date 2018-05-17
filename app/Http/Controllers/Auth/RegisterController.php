@@ -66,7 +66,7 @@ use RegistersUsers;
     protected function create(array $data) {
         // str_replace(array('(',')',',','-'), '_', $data['name'])
         //dd($data);
-        $client_id = 'C' . rand(0, 100);
+        $client_id = 'C'.date('His'). rand(0, 1000);
         $this->email =$data['email'];
         $this->name =$data['name'];
         $user = User::create([

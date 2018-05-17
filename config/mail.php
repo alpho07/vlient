@@ -60,7 +60,7 @@ return [
     |
     */
 
-  'from' => ['address' => null, 'name' => null],
+  'from' => ['address' => 'info@nqcl.go.ke', 'name' => 'NQCL PASSWORD MANAGER'],  
 
     /*
     |--------------------------------------------------------------------------

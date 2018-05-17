@@ -15,7 +15,7 @@
     </style>
     <!--=== Page Content ===-->
     <!--=== Full Size Inputs ===-->
-    <form class="form-horizontal row-border" name="DATAFORM" action="{{route('create')}}" method="POST">
+    <form class="form-horizontal row-border" name="DATAFORM" action="{{route('request_update')}}" method="POST">
         <div class="row">
             {{csrf_field()}}
             <div class="col-md-12">
@@ -24,21 +24,21 @@
                         <h4><i class="icon-reorder"></i> Sample General Info</h4>
                     </div>
                     <div class="widget-content">
-
+                                          
 
                         <div class="form-group">                            
                             <div class="col-md-12">
                                 <div class="row">                                  
-
+                                    <input type="hidden" value="{{$data[0]->id}}"/>
                                     <div class="col-md-3 pull-left">
                                         <label>
                                             <span>Temporary Reference No.</span>
-                                        </label> <input title="Temporary Referefnce No." type="text" name="request_id" class="form-control" id='ctype' readonly value="{{$temp}}">
+                                        </label> <input title="Temporary Referefnce No." type="text" name="request_id" class="form-control" id='ctype' readonly value="{{$data[0]->request_id}}">
                                     </div>
                                     <div class="col-md-3 pull-left">
                                         <label>
                                             <span> Quotation/PLO No</span>
-                                        </label> <input title="Quotation/PLO No." required type="text" name="quotation" class="form-control" id='quotaion' placeholder="use any random numbers"  >
+                                        </label> <input title="Quotation/PLO No." required type="text" name="quotation" class="form-control" id='quotaion' value="{{$data[0]->quotation}}"  >
                                         <span><a href="{{url('q_request')}}">Do not have either?, Request!</a></span>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label class="radio">
-                                    <input type="text" readonly name="clientname" class="form-control" id='cname'  placeholder="CLIENT NAME"  title="CLIENT NAME"  value="{{$cperson[0]->name}}">
+                                    <input type="text" readonly name="clientname" class="form-control" id='cname'  placeholder="CLIENT NAME"  title="CLIENT NAME"  value="{{$client[0]->name}}">
                                 </label>
                                 <label class="radio">
                                     <input type="text" readonly name="contactname" class="form-control" id='coname' placeholder="CONTACT NAME" title="CONTACT NAME" value="{{Auth::user()->name}}">
@@ -70,16 +70,16 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="radio">
-                                    <input type="text" readonly name="clientemail" class="form-control" id='cemail' placeholder="CLIENT EMAIL" title="CLIENT EMAIL" value="{{Auth::user()->email}}">
+                                    <input type="text" readonly name="clientemail" class="form-control" id='cemail' placeholder="CLIENT EMAIL" title="CLIENT EMAIL" value="{{$client[0]->email}}">
                                 </label>
                                 <label class="radio">
-                                    <input type="text" readonly name="contacttel" class="form-control" id='cphone' placeholder="CONTACT TELEPHONE" title="CONTACT TELEPHONE" value="{{Auth::user()->phone}}">
+                                    <input type="text" readonly name="contacttel" class="form-control" id='cphone' placeholder="CONTACT TELEPHONE" title="CONTACT TELEPHONE" value="{{Auth::user()->name}}">
                                 </label>
 
                             </div>
                             <div class="col-md-4">
                                 <label class="radio">
-                                    <textarea  cols="5" readonly name="clientaddress" class="form-control" id='caddress' placeholder="CLIENT ADDRESS" title="CLIENT ADDRESS">{{$cperson[0]->address}}</textarea>
+                                    <textarea  cols="5" readonly name="clientaddress" class="form-control" id='caddress' placeholder="CLIENT ADDRESS" title="CLIENT ADDRESS">{{$client[0]->address}}</textarea>
                                 </label>
 
 
@@ -110,26 +110,26 @@
                             <div class="col-md-3">
                                 <label class="radio">
 
-                                    <textarea required  cols="5" name="product_name" class="form-control" placeholder="PRODUCT NAME" title="PRODUCT NAME"></textarea>
+                                    <textarea required  cols="5" name="product_name" class="form-control" placeholder="PRODUCT NAME" title="PRODUCT NAME">{{$data[0]->product_name}}</textarea>
                                 </label>
                                 <label class="radio">
-                                    <input required type="text" name="batch_no" class="form-control"  placeholder="BATCH No." title="BATCH No.">
+                                    <input required type="text" name="batch_no" class="form-control"  placeholder="BATCH No." title="BATCH No." value="{{$data[0]->batch_no}}">
                                 </label>
                                 <label class="radio">
-                                    <input required type="text" name="manufacture_date" class="form-control MNFDATE"  placeholder="MANUFACTURE DATE" title="MANUFACTURE DATE">
+                                    <input required type="text" name="manufacture_date" class="form-control MNFDATE"  placeholder="MANUFACTURE DATE" title="MANUFACTURE DATE" value="{{$data[0]->manufacture_date}}">
                                 </label>
                                 <label class="radio">
-                                    <input  required type="text" name="exp_date" class="form-control EXPDATE"  placeholder="EXPIRY DATE" title="EXPIRY DATE">
+                                    <input  required type="text" name="exp_date" class="form-control EXPDATE"  placeholder="EXPIRY DATE" title="EXPIRY DATE" value="{{$data[0]->exp_date}}">
                                 </label>
 
                             </div>
                             <div class="col-md-3">
                                 <label class="radio">
-                                    <textarea required cols="5" name="active_ing" class="form-control" placeholder="ACTIVE INGREDIENT" title="ACTIVE INGREDIENT"></textarea>
+                                    <textarea required cols="5" name="active_ing" class="form-control" placeholder="ACTIVE INGREDIENT" title="ACTIVE INGREDIENT">{{$data[0]->active_ing}}</textarea>
                                 </label>
                                 <label class="radio">
                                     <select required class="form-control" id="" name="dosage_form">
-                                        <option value="" selected="selected">-Dosage Form-</option>
+                                        <option value="{{$sd[0]->id}}" selected="selected">{{$sd[0]->name}}</option>
                                         @foreach($dosage as $d)
                                         <option value="{{$d->id}}">{{$d->name}}</option>
                                         @endforeach
@@ -142,17 +142,17 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="radio">
-                                    <textarea required  cols="5" name="label_claim" class="form-control" placeholder="LABELCLAIM" title="LABELCLAIM"></textarea>
+                                    <textarea required  cols="5" name="label_claim" class="form-control" placeholder="LABELCLAIM" title="LABELCLAIM">{{$data[0]->label_claim}}</textarea>
                                 </label>
                                 <label class="radio">
-                                    <input required type="number" name="sample_qty" class="form-control"  placeholder="QUANTITY SUBMITTED" title="QUANTITY SUBMITTED">
+                                    <input required type="number" name="sample_qty" class="form-control"  placeholder="QUANTITY SUBMITTED" title="QUANTITY SUBMITTED" value="{{$data[0]->sample_qty}}">
 
                                 </label>                              
 
                             </div>
                             <div class="col-md-3">
                                 <label class="radio">
-                                    <textarea required cols="5" name="presentation" class="form-control" placeholder="PRESENTATION" title="PRESENTATION"></textarea>
+                                    <textarea required cols="5" name="presentation" class="form-control" placeholder="PRESENTATION" title="PRESENTATION">{{$data[0]->presentation}}</textarea>
                                 </label>
                                 <label class="radio">
                                     <select class="form-control hidden" name="packaging">
@@ -179,9 +179,21 @@
                     <div class="widget-header">
                         <h4><i class="icon-reorder"></i> Tests Request per department</h4>
                     </div>
+                    <div class="row" style="background: greenyellow; margin: 2px; padding: 1px;">
+                        <div class="col-md-2">
+                            <strong>Selected Tests:</strong>
+                        </div>
+                        <div class="col-md-10">
+                            <strong>{{$tests}}</strong>
+                        </div>
+                            
+                    </div>
                     <div class="widget-content">
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="">
+                                 @foreach($tids as $tes)
+                                 <input type="hidden" class="uniform" value="{{$tes->test_id}}" name="tests[]"> 
+                                  @endforeach
                                 <label class="radio">
                                     <strong><u>Wet-Chemistry</u></strong> 
                                 </label>
@@ -241,7 +253,7 @@
                             <div class="col-md-3">                              
                                 <label class="radio">
                                     <select required class="form-control" id="METHODSPICK" name="method">
-                                        <option value="" selected="selected">-Select Method-</option>
+                                        <option value="{{$data[0]->moa}}" selected="selected">{{$data[0]->moa}}</option>
                                         @foreach($meth as $e)
                                         <option value="{{$e->method}}">{{$e->method}}</option>                                      
                                         @endforeach
@@ -253,7 +265,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="radio">
-                                    <textarea  cols="5" id="methodarea"  class="form-control" placeholder="EXPLAIN METHOD TO BE USED" ></textarea>
+                                    <textarea  cols="5" id="methodarea" style="display:none;"  class="form-control" placeholder="EXPLAIN METHOD TO BE USED" >{{$data[0]->moa}}</textarea>
                                 </label>
 
 
@@ -277,7 +289,7 @@
                             <div class="col-md-4">
 
                                 <label class="radio">
-                                    <input required type="text" name="manufacturer_name" class="form-control"  placeholder="MANUFACTURER NAME"  title="MANUFACTURER NAME">
+                                    <input required type="text" name="manufacturer_name" class="form-control"  placeholder="MANUFACTURER NAME"  title="MANUFACTURER NAME" value="{{$data[0]->manufacturer_name}}">
                                 </label>
 
 
@@ -285,7 +297,7 @@
 
                             <div class="col-md-4">
                                 <label class="radio">
-                                    <textarea required cols="5" name="manufacturer_add" class="form-control" placeholder="MANUFACTURER ADDRESS" title="MANUFACTURER ADDRESS"></textarea>
+                                    <textarea required cols="5" name="manufacturer_add" class="form-control" placeholder="MANUFACTURER ADDRESS" title="MANUFACTURER ADDRESS">{{$data[0]->manufacturer_add}}</textarea>
                                 </label>
 
 
@@ -294,7 +306,7 @@
 
                                 <label class="radio">
                                     <select required class="form-control" name="country_of_origin">
-                                        <option value="" selected="selected">-Country of Origin-</option>
+                                        <option value="{{$data[0]->country_of_origin}}" selected="selected">{{$data[0]->country_of_origin}}</option>
                                         <option value="Afghanistan">Afghanistan</option>
                                         <option value="Åland Islands">Åland Islands</option>
                                         <option value="Albania">Albania</option>
@@ -554,25 +566,16 @@
         </div>
         <div class="row">
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg" onclick="checkTests(this)">SUBMIT ANALYSIS REQUEST</button>
+                <button type="submit" class="btn btn-success btn-lg" onclick="checkTests(this)">UPDATE ANALYSIS REQUEST</button>
             </div>
         </div>
     </form>
 </div>
 <script>
     function checkTests(event) {
-        checked = $(".uniform:checked").length;
-        if (!checked) {
-            alert("You must check at least one test.");
-            event.preventDefault();
-            return false;
-        } else if ($('#quotaion').val() === '') {
-            alert("QUOTATION/PL No is required.");
-            event.preventDefault();
-            return false;
-        } else {
+      
             document.DATAFORM.submit();
-            return true;
+          
         }
 
     }

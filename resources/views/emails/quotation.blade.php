@@ -282,7 +282,7 @@
                     <div class="content">
 
                         <!-- START CENTERED WHITE CONTAINER -->
-                        <span class="preheader">Password Change.</span>
+                        <span class="preheader">Quotation Details.</span>
                         <table class="main">
 
                             <!-- START MAIN CONTENT AREA -->

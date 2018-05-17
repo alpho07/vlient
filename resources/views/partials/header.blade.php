@@ -129,9 +129,27 @@ $(document).ready(function () {
             $("textarea#methodarea").hide();
         }
     });
-    $(".MNFDATE,.EXPDATE").datepicker({
+
+    $(".MNFDATE").datepicker({
         changeYear: true,
-        dateFormat: 'M-yy'
+        dateFormat: 'M-yy',
+        yearRange:"c-10:c+0",
+        onSelect: function (date) {
+            $(".EXPDATE").datepicker('option', 'minDate', date);
+        },
+        onClose: function (dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+
+        }
+    });
+    $(".EXPDATE").datepicker({
+        changeYear: true,
+        dateFormat: 'M-yy',
+        yearRange:"c+1:c+10",
+        onClose: function (dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+
+        }
     });
     $('a.ADDCONT').click(function () {
         $(this).hide();
@@ -148,7 +166,7 @@ $(document).ready(function () {
         var favorite = [];
         $.each($(".uniform:checked"), function () {
 
-            favorite.push($(this).val());
+            favorite.push($(this).attr('id'));
         });
         var message = "Hello kindly send me a quotation for the following tests: " + favorite.join(", ");
         $('textarea#tests_requested').val(message);

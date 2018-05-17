@@ -57,7 +57,15 @@
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" value="{{$a->id}}" class="uniform">
                                                             </td>
-                                                            <td>{{$a->request_id}}</td>
+                                                            <td>
+                                                                {{$a->request_id}} 
+                                                                 @if($a->t==1)
+                                                                 | <a href="{{url('edit/'.$a->request_id)}}"><span class="label label-warning">Edit</span></a>
+                                                              @else
+                                                               
+                                                            @endif
+                                                            
+                                                            </td>
                                                             <td>{{$a->designation_date_1}}</td>                                                            
                                                             <td>
                                                           @if($a->t==1)
@@ -66,8 +74,14 @@
                                                                 <span class="label label-success">Approved</span>
                                                             @endif
                                                           </td>
-                                                            <td>-</td> 
-                                                            <td>{{$a->CAN}}</td>
+                                                          <td>-</td>
+                                                            <td>
+                                                                @if($a->CAN=='-')
+                                                                 {{'-'}}
+                                                                @else
+                                                                <a href="{{'http://156.0.233.241/NQCL/coa/coa_engine/'.$a->request_id}}" target="_blank">View COA</a>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
 

@@ -29,9 +29,8 @@
                     </div>
                     <div class="tabbable box-tabs">
                         <ul class="nav nav-tabs">
-                            <li><a href="#box_tab3" data-toggle="tab">Pending Invoices</a></li>
-                            <li><a href="#box_tab2" data-toggle="tab">Paid Invoices</a></li>
-                            <li class="active"><a href="#box_tab1" data-toggle="tab"> All Invoices</a></li>
+                            <li><a href="#box_tab2" data-toggle="tab">Invoices</a></li>
+                            <li class="active"><a href="#box_tab1" data-toggle="tab">Quotations</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="box_tab1">
@@ -54,9 +53,9 @@
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
                                                             <th>Quotation No.</th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
+                                                            <th>Product</th>
+                                                            <th>No.of Batches</th>
+                                                            <th>Request Date</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -67,19 +66,23 @@
                                                             <td class="checkbox-column">
                                                                 <input type="checkbox" class="uniform" value="{{$q->id}}">
                                                             </td>
-                                                            <td>{{$q->quotations_id}}</td>
-                                                            <td>INV-NDQC11233</td>
-                                                            <td>{{$q->quotation_date}}</td>
-                                                            <td>{{$q->amount}}</td>
+                                                            <td>{{$q->quotation_no}}</td>
+                                                            <td>{{$q->quotations[0]->sample_name}}</td>
+                                                            <td><a>{{$q->quotations[0]->no_of_batches}}</a>
+                                                                @foreach($q->quotations as $i)
+                                                                    {{$i->quotations_id}}
+                                                                @endforeach
+                                                            </td>
+                                                            <td>{{$q->quotations[0]->quotation_date}}</td>
                                                             <td>
-                                                                @if($q->quotation_status===1)
-                                                                <span class="label label-success">Paid</span>
+                                                                @if($q->quotation_status===0)
+                                                                <span class="label label-success">Pending Review</span>
                                                                 @else
-                                                                <span class="label label-warning">Pending</span>
+                                                                <span class="label label-warning">Generated</span>
                                                                 @endif
 
                                                             </td>
-                                                            <td><a href="#">View</a> | <a href="#">Archive</a> | <a href="#">Print</a></td>
+                                                            <td> @if($q->quotation_status!==0)<a href="#">View</a> @else <a href={{route('edit_quote', $q->quotation_no)}} class="edit-quotation">Edit</a> @endif</td>
                                                         </tr>
                                                         @endforeach
 
@@ -110,51 +113,13 @@
                                                             <th class="checkbox-column">
                                                                 <input type="checkbox" class="uniform">All
                                                             </th>
-                                                            <th>Quotation No.</th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-
-
-
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="box_tab3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="widget box">
-                                            <div class="widget-header">
-                                                <h4><i class="icon-reorder"></i>Pending Invoices</h4>
-                                                <div class="toolbar no-padding">
-                                                    <div class="btn-group">
-                                                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content no-padding">
-                                                <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="checkbox-column">
-                                                                <input type="checkbox" class="uniform">All
-                                                            </th>
-                                                            <th>Quotation No.</th>
-                                                            <th>Invoice Reference</th>
-                                                            <th>Date Created</th>
-                                                            <th >Amount</th>
-                                                            <th>Status</th>
+                                                            <th>Invoice No.</th>
+                                                            <th>NDQ No. Ref</th>
+                                                            <th>Quotation No. Ref</th>
+                                                            <th>Amount</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Amount Due</th>
+                                                            <th>Due Date</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -181,4 +146,7 @@
 
     <!-- /Statboxes -->
 </div>
+<script type="text/javascript">
+    
+</script>
 @endsection

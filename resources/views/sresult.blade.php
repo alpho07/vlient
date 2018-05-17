@@ -41,7 +41,7 @@
                             @endif
                             <tr>
                                 <td>
-                                    &#10148; &nbsp;<a href="{{url('display/').'/'.$c->id}}" target='_blank'>{{$c->product_name.' ' .$c->request_id .'-'.$c->batch_no.' Status : Pending'}}</a>
+                                    &#10148; &nbsp;{{$c->product_name.' ' .$c->request_id .'-'.$c->batch_no.' Status : Pending'}}
                                 </td>
                             </tr>
                             @endforeach

@@ -10,6 +10,9 @@ use Auth,
 use Illuminate\Support\Collection;
 use App\RequestModel;
 use App\Quotation;
+use App\Quotations;
+use App\Quotations_final;
+
 
 class HomeController extends Controller {
 
@@ -51,7 +54,7 @@ class HomeController extends Controller {
 
     function finance() {
         $id = Auth::user()->id;
-        $quotation = Quotation::whereclientNumber($id)->get();
+        $quotation = Quotations_final::whereclient_id($id)->with('quotations')->get();
         return view('finance')->with(['title' => 'FINANCE DASHBOARD', 'quotations' => $quotation]);
     }
 
@@ -124,7 +127,7 @@ class HomeController extends Controller {
 
     function search(Request $r) {
         $keyword = $r->keyword;
-        $user = Auth::user()->id;
+        $user = Auth::user()->user_id;
 
         $caveats = DB::select(DB::raw("SELECT * FROM request WHERE ( (product_name LIKE '$keyword%') OR (request_id LIKE '$keyword%') OR (batch_no LIKE '$keyword%') ) AND user_id='$user' "));
         //OR  County LIKE '%$search%' OR Description LIKE '%$search%' OR Area LIKE '%$search%' OR Landmark LIKE '%$search%' OR Road LIKE '%$search%'

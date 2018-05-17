@@ -5,7 +5,7 @@
     </div>
 
     <!-- Page Stats -->
-    <ul class="page-stats">
+    <!--ul class="page-stats">
         <li>
             <div class="summary">
                 <span>Completed Samples</span>
@@ -15,7 +15,7 @@
             <!-- Use instead of sparkline e.g. this:
             <div class="graph circular-chart" data-percent="73">73%</div>
             -->
-        </li>
+        <!--/li>
         <li>
             <div class="summary">
                 <span>Pending Samples</span>
