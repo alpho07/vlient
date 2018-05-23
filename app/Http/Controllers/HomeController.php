@@ -53,7 +53,7 @@ class HomeController extends Controller {
     }
 
     function finance() {
-        $id = Auth::user()->id;
+        $id = Auth::user()->user_id;
         $quotation = Quotations_final::whereclient_id($id)->with('quotations')->get();
         return view('finance')->with(['title' => 'FINANCE DASHBOARD', 'quotations' => $quotation]);
     }
@@ -200,7 +200,7 @@ class HomeController extends Controller {
             $email = Auth::user()->email;
             $message->to($email, $name)
                     ->subject($name. ', Change of password Notification');
-            $message->from('info@nqcl.go.ke', 'Rebecca from NQCL');
+            $message->from('info@nqcl.go.ke', 'CLIENT SERVICE UNIT');
         });
         
          Session::put('psuccess', 'An email has been sent to your email address with password change link');

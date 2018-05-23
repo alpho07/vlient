@@ -11,6 +11,27 @@
     .DISABLED{
         display: none !important;
     }
+    
+    .yummy {
+    color: #fff;
+    padding: 2px 3px 2px;
+    border: 1px solid #9fa3a7;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #ffffff;
+    box-shadow:
+        0 1px 0 rgba(0,0,0,.08),
+        inset 0 1px 2px rgba(255,255,255,.67),
+        inset 0 -1px 0 rgba(0,0,0,.14);
+ 
+}
 </style>
         <div id="app">
             <nav class="navbar navbar-default navbar-static-top">
@@ -27,7 +48,7 @@
 
                         <!-- Branding Image -->
                         <a class="navbar-brand" href="{{ url('/home') }}">
-                            <img src="{{asset('assets/img/logo_main.png')}}" alt="NQCL - LIMS" style="height:50px !important;"/>
+                            <img class="yummy" src="{{asset('assets/img/coa.png')}}" alt="NQCL - LIMS" style="height:50px !important;"/>
                         </a>
                         
                     </div>
@@ -86,7 +107,7 @@
                                 </ul>
                             </li>
                             @endif
-                            <li> <div class="pull-right"><img style="width:50px !important;" alt="Court of Arms" src="{{asset('assets/img/coa.png')}}"></div></li>
+                            <li> <div class="pull-right yummy"><img style="width:45px !important;" alt="Court of Arms" src="{{asset('assets/img/logo_main.png')}}"></div></li>
                         </ul>
                         
                     </div>

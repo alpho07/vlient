@@ -22,7 +22,8 @@
                             </div>
                         </div>
                         <div class="widget-content no-padding">
-                            <a href="{{route('newc')}}"  class="btn btn-info btn-lg">New Contact</a>
+                            <a href="{{route('newc')}}"  class="btn btn-info btn-lg">New Contact</a> or 
+                            <a href="{{route('samples')}}"  class="btn btn-success btn-lg">Visit Sample Dashboard</a> 
                             <table class="table table-striped table-bordered table-hover table-checkable table-tabletools datatable ALLINVPICES">
                                 <thead>
                                     <tr>

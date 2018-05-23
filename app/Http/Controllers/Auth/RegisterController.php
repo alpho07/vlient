@@ -103,7 +103,7 @@ use RegistersUsers;
         \Mail::send('emails.welcome',   $maildata , function($message) {
             $message->to($this->email, $this->name)
                     ->subject($this->name.', Welcome to your new NQCL LIMS account ');
-            $message->from('info@nqcl.go.ke', 'Rebecca from NQCL');
+            $message->from('info@nqcl.go.ke', 'CLIENT SERVICE UNIT');
         });
 
 

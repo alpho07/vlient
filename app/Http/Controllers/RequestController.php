@@ -136,7 +136,7 @@ class RequestController extends Controller {
             $q = new Quotations;
            // $padded = str_pad(Quotation::all()->last()->id, 2, '0', STR_PAD_LEFT);
            // $id = $this->number . "-" . $padded;
-            $q->client_number = $user->id;
+            $q->client_number = $user->user_id;
             $q->client_email = $user->email;
             $q->client_name = $user->name;
             $q->sample_name = $r->sample_name;
@@ -169,7 +169,7 @@ class RequestController extends Controller {
         for($i=0;$i<count($tests);$i++){
             $request = new Q_request_details;
             $request -> test_id = $tests[$i];
-            $request -> client_number = $client_no;
+            $request -> client_number = $user->user_id;
             $request -> client_email = $email;
             $request -> quotation_id = $quotation_id;
             $request -> quotations_id = $quotation_id.'-'.$b;
@@ -197,7 +197,7 @@ class RequestController extends Controller {
 
 
             //Save to main quotation table
-            $q_f = Quotations_final::firstOrNew(['quotation_no' => $quotation_no], ['quotation_entries'=>1, 'client_id'=>$client_no, 'currency'=>$currency, 'quotation_status'=>0, 'source_status' => $source_status]);
+            $q_f = Quotations_final::firstOrNew(['quotation_no' => $quotation_no], ['quotation_entries'=>1, 'client_id'=>$user->user_id, 'currency'=>$currency, 'quotation_status'=>0, 'source_status' => $source_status]);
             $q_f -> save();
 
             //Initialize row at Quotation NOtes
@@ -351,7 +351,7 @@ class RequestController extends Controller {
         \Mail::send('emails.quotation', $maildata, function($message) {
             $name = Auth::user()->name;
             $email = Auth::user()->email;
-            $message->to('wndethi@gmail.com', 'NQCL LIMS CLIENT')
+            $message->to('wndethi@gmail.com', 'CLIENT SERVICE UNIT')
                     ->subject($name . ', Quotation Edited.');
             $message->from($email, $name);
         });

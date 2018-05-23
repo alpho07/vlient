@@ -24,7 +24,7 @@
                     <div class="btn-group">
                         {{--@if(Auth::user()->parent=='0')--}}
                         {{--@else--}}
-                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                        <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Submit New Sample</i></a>
                         {{--@endif--}}
                     </div>
                     <div class="tabbable box-tabs">

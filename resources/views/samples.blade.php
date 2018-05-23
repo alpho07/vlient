@@ -12,14 +12,14 @@
         <div class="col-md-12">
             <div class="widget box">
                 <div class="widget-header">
-                    <h4><i class="icon-reorder"></i> Analysis Requests</h4>
+                    <h4><i class="icon-reorder"></i> Sample Requests</h4>
                 </div>
                 <div class="widget-content">
                     <div class="tabbable box-tabs">
                         <ul class="nav nav-tabs">
-                            <li><a href="#box_tab3" data-toggle="tab">Pending Requests</a></li>
-                            <li><a href="#box_tab2" data-toggle="tab">Completed Requests</a></li>
-                            <li class="active"><a href="#box_tab1" data-toggle="tab"> All Requests</a></li>
+                            <li><a href="#box_tab3" data-toggle="tab">Pending  Sample Requests</a></li>
+                            <li><a href="#box_tab2" data-toggle="tab">Completed Sample  Requests</a></li>
+                            <li class="active"><a href="#box_tab1" data-toggle="tab"> All Sample Requests</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="box_tab1">
@@ -27,12 +27,12 @@
                                     <div class="col-md-12">
                                         <div class="widget box">
                                             <div class="widget-header">
-                                                <h4><i class="icon-reorder"></i>All Requests</h4>
+                                                <h4><i class="icon-reorder"></i>All Sample Requests</h4>
                                                 <div class="toolbar no-padding">
                                                     <div class="btn-group">
                                                         {{--@if(Auth::user()->parent=='0')--}}
                                                           {{--@else--}}
-                                                       <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                                       <a href="{{route('q_request')}}" class="btn btn-warning">Request A Quote</a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Submit New Sample</i></a>
                                                        {{--@@endif--}}
                                                     </div>
                                                 </div>
@@ -46,8 +46,8 @@
                                                             </th>
                                                             <th>Lab Reference</th>
                                                             <th>Date Submitted</th>
-                                                            <th >Status</th>
-                                                            <th>Date Completed</th>
+                                                            <th>Sample Status</th>
+                                                            <th>Analysis Status</th>
                                                             <th>CAN No.</th>
                                                         </tr>
                                                     </thead>
@@ -74,7 +74,13 @@
                                                                 <span class="label label-success">Approved</span>
                                                             @endif
                                                           </td>
-                                                          <td>-</td>
+                                                          <td>
+                                                           @if($a->CAN=='-')
+                                                                  <span class="label label-warning">Process Ongoing...</span>
+                                                                @else
+                                                                   <span class="label label-success">Complete</span>
+                                                                @endif
+                                                          </td>
                                                             <td>
                                                                 @if($a->CAN=='-')
                                                                  {{'-'}}
@@ -103,7 +109,7 @@
                                 <div class="btn-group">
                                      @if(Auth::user()->parent=='0')
                                                         @else
-                                                       <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                                       <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}" class="btn btn-success"><i class="icon-plus-sign">Submit New Sample</i></a>
                                               @endif
                                 </div>
                             </div>
@@ -117,8 +123,8 @@
                                     </th>
                                     <th>Lab Reference</th>
                                     <th>Date Submitted</th>
-                                    <th >Status</th>
-                                    <th>Date Completed</th>
+                                    <th >Sample Status</th>
+                                    <th>Analysis Status</th>
                                     <th>CAN No.</th>
                                 </tr>
                             </thead>
@@ -137,8 +143,20 @@
                                                                 <span class="label label-success">Approved</span>
                                                             @endif
                                                           </td>
-                                                            <td>-</td> 
-                                                            <td>{{$a->CAN}}</td>
+                                                            <td>
+                                                             @if($a->CAN=='-')
+                                                                  <span class="label label-warning">Process Ongoing...</span>
+                                                                @else
+                                                                   <span class="label label-success">Complete</span>
+                                                                @endif
+                                                            </td> 
+                                                            <td>
+                                                            @if($a->CAN=='-') 
+                                                                 {{'-'}}
+                                                                @else
+                                                                <a href="{{'http://156.0.233.241/NQCL/coa/coa_engine/'.$a->request_id}}" target="_blank">View COA</a>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
 
@@ -154,12 +172,12 @@
             <div class="col-md-12">
                 <div class="widget box">
                     <div class="widget-header">
-                        <h4><i class="icon-reorder"></i>Pending Requests</h4>
+                        <h4><i class="icon-reorder"></i>Pending Sample Requests</h4>
                         <div class="toolbar no-padding">
                             <div class="btn-group">
                                  @if(Auth::user()->parent=='0')
                                                         @else                 
-                                <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}"< class="btn btn-success"><i class="icon-plus-sign">Add New Request</i></a>
+                                <a href="{{route('q_request')}}" class="btn btn-warning"><i class="icon-euro">Request A Quote</i></a>  <a href="{{route('new')}}"< class="btn btn-success"><i class="icon-plus-sign">Submit New Sample</i></a>
                             @endif
                             </div>
                         </div>
@@ -173,8 +191,8 @@
                                     </th>
                                     <th>Lab Reference</th>
                                     <th>Date Submitted</th>
-                                    <th >Status</th>
-                                    <th>Date Completed</th>
+                                    <th >Sample Status</th>
+                                    <th>Analysis Status</th>
                                     <th>CAN No.</th>
                                 </tr>
                             </thead>
@@ -193,7 +211,11 @@
                                                                 <span class="label label-success">Approved</span>
                                                             @endif
                                                           </td>
-                                                            <td>-</td> 
+                                                            <td> @if($a->CAN=='-')
+                                                                  <span class="label label-warning">Process Ongoing...</span>
+                                                                @else
+                                                                   <span class="label label-success">Complete</span>
+                                                                @endif</td> 
                                                             <td>{{$a->CAN}}</td>
                                                         </tr>
                                                     @endforeach
